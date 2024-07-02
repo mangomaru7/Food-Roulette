@@ -32,10 +32,11 @@ def get_naver_map_url(address):
     return f"{base_url}{encoded_address}"
 
 # 상호명과 주소를 이용해 네이버 검색 URL로 변환하는 함수
-def get_naver_search_url(name, address):
-    dong_match = re.search(r'(\w+로)', address)
-    dong = dong_match.group(1) if dong_match else ""
-    search_term = f"{dong} {name}".strip() if dong else name
+def get_naver_search_url(name):
+    # dong_match = re.search(r'(\w+로)', address)
+    # dong = dong_match.group(1) if dong_match else ""
+    # search_term = f"{dong} {name}".strip() if dong else name
+    search_term = f"사하구 {name}".strip() 
     base_url = "https://search.naver.com/search.naver?query="
     encoded_term = urllib.parse.quote(search_term)
     return f"{base_url}{encoded_term}"
@@ -59,7 +60,8 @@ def random_recommendation_page():
             recommendation = filtered_df.sample(1).iloc[0]
             st.success('오늘의 추천 식당은...')
             naver_map_url = get_naver_map_url(recommendation['주소'])
-            naver_search_url = get_naver_search_url(recommendation['상호명'], recommendation['주소'])
+            # naver_search_url = get_naver_search_url(recommendation['상호명'], recommendation['주소'])
+            naver_search_url = get_naver_search_url(recommendation['상호명'])
             st.markdown(f"""
             ### 🏠 [{recommendation['상호명']}]({naver_search_url})
             - 📍 주소: [{recommendation['주소']}]({naver_map_url})
