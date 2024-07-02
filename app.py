@@ -33,7 +33,7 @@ def get_naver_map_url(address):
 
 # 상호명과 주소를 이용해 네이버 검색 URL로 변환하는 함수
 def get_naver_search_url(name, address):
-    dong_match = re.search(r'(\w+사하구)', address)
+    dong_match = re.search(r'(\w+로)', address)
     dong = dong_match.group(1) if dong_match else ""
     search_term = f"{dong} {name}".strip() if dong else name
     base_url = "https://search.naver.com/search.naver?query="
